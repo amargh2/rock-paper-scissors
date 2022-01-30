@@ -6,49 +6,56 @@ function computerPlay () {
     return computerChoice;
 }
 
-/* defining variable for the parameter of the following function */
+function playerChoice() {
+    let choice = prompt('Rock, paper or scissors?').toLowerCase();
+    return choice;
+}
 
-
-/*function playerChoice(){
-    let playerSelection = prompt('Rock, Paper, or Scissors?').toLowerCase();
-    return playerSelection;
+/*function choiceCheck(choice) {
+    if (choice !== 'rock' && choice !== 'paper' && choice !== 'scissors') {
+        console.log('That\'s not one of the available choices! Pick rock, paper, or scissors!');
+        choice = prompt('Rock, paper, or scissors?');
+    }
+    else {
+        return choice
+    }
 } */
 
-
+/*take the player selection and computer selection and compare them to see whether it is a win, a tie, or a loss, and return a string */
 
 function playRound(computerSelection, playerSelection) {
     /*outcomes if the player chooses rock */
     
     if (playerSelection == 'rock' && computerSelection == 'scissors') { 
-        return(`You picked ${playerSelection} and the computer picked ${computerSelection}! You win!`)
+        return ('You win!')
     }
     else if (playerSelection == 'rock' && computerSelection == 'paper') {
-        return(`You picked ${playerSelection} and the computer picked ${computerSelection}! You lose!`)
+        return('You lose!')
     }
     else if (playerSelection == 'rock' && computerSelection == 'rock') {
-        return(`You picked ${playerSelection} and the computer picked ${computerSelection}! It's a tie!`)
+        return('It\'s a tie!')
     }
     
     /*outcomes if the player chooses paper */
-    else if (playerSelection == 'paper' && computerSelection == 'rock') {
-        return(`You picked ${playerSelection} and the computer picked ${computerSelection}! You win!`)
+    if (playerSelection == 'paper' && computerSelection == 'rock') { 
+        return ('You win!')
     }
     else if (playerSelection == 'paper' && computerSelection == 'scissors') {
-        return(`You picked ${playerSelection} and the computer picked ${computerSelection}! You lose!`)
+        return('You lose!')
     }
     else if (playerSelection == 'paper' && computerSelection == 'paper') {
-        return(`You picked ${playerSelection} and the computer picked ${computerSelection}! It's a tie!`)
+        return('It\'s a tie!')
     }
     
     /*outcomes if the player chooses scissors*/
-    else if (playerSelection == 'scissors' && computerSelection == 'paper') {
-        return(`You picked ${playerSelection} and the computer picked ${computerSelection}! You win!`)
+    if (playerSelection == 'scissors' && computerSelection == 'paper') { 
+        return ('You win!')
     }
     else if (playerSelection == 'scissors' && computerSelection == 'rock') {
-        return(`You picked ${playerSelection} and the computer picked ${computerSelection}! You lose!`)
+        return('You lose!')
     }
     else if (playerSelection == 'scissors' && computerSelection == 'scissors') {
-        return(`You picked ${playerSelection} and the computer picked ${computerSelection}! It's a tie!`)
+        return('It\'s a tie!')
     }
 }
 
@@ -56,22 +63,41 @@ function playRound(computerSelection, playerSelection) {
 
 
 function game() {
+    /*declare variables for wins, ties, and losses that will be incremented as they accumulate in the for loop */    
     let wins=0
-    let notwins = 0
+    let ties = 0
+    let losses = 0
 
+    /*this loop gets the player's choice, the computer's choice, compares them, and reports the outcome to the player. then the outcome is tallied
+    and the corresponding variable is incremented */
     for (let gameTries = 0; gameTries < 5; gameTries++) {
-        let playerSelection = prompt('Rock, paper, or scissors?');
+        let playerSelection = playerChoice();
         let computerSelection = computerPlay();
         outcome = playRound(computerSelection, playerSelection);
-        console.log(outcome);
-        if (outcome.includes('win')) {
+        console.log(`You chose ${playerSelection} and the computer chose ${computerSelection}. ${outcome}.`);
+        if (outcome == "You win!") {
             wins += 1;
         }
-        else {
-            notwins += 1;
+        else if (outcome == "It's a tie!") {
+            ties += 1;
+        }
+        else if (outcome == "You lose!") {
+            losses += 1;
         }
     }
-    console.log(`You won ${wins} games and lost or tied ${notwins}.`)
+    
+    /*report the wins and losses and declare a winner */
+
+    console.log(`Out of 5 games, you won ${wins} games, lost ${losses}, and tied ${ties}.`)
+    if (wins > losses) {
+        console.log('You won more games than the computer! Congrats!')
+    }
+    else if (losses > wins) {
+        console.log('The computer won more games than you, but don\'t let it get you down.')
+    }
+    else if (wins == losses) {
+        console.log('It\'s a tie! Better play again!')
+    }
 }
 
 game()
